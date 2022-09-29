@@ -1,0 +1,15 @@
+version: "3.1"
+
+services:
+  redis:
+    image: redis:4.0.6
+
+  mongo:
+    image: mongo:4.0.6
+
+  webapp:
+    depends_on:
+      - mongo
+
+  fakeapi:
+    image: pretenders/pretenders:1.4

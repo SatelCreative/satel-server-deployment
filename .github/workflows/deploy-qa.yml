@@ -1,0 +1,31 @@
+name: deploy-qa
+
+on:
+  workflow_call:
+    branches: main
+
+env:
+    DOCKER_TLS_VERIFY: '1'
+    DOCKER_HOST: 'tcp://34.234.172.171:2376'
+    DOCKER_CERT_PATH: '/var/jenkins_home/.docker/machine/machines/satel-webapps-qa'
+
+jobs:
+  deploy-qa: 
+    name: Deploy to QA
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          registry: docker.satel.ca
+          username: ${{ secrets.DOCKERUSER }}
+          password: ${{ secrets.DOCKERPASS }}
+
+      - name: Deploy stack
+        run: docker stack deploy --with-registry-auth -c docker-compose.qa.yml test      
+  
+  
