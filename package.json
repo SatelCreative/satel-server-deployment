@@ -1,0 +1,25 @@
+{
+  "name": "satel-webapp-deployment",
+  "version": "1.0.0",
+  "description": "Centralized GitHub actions to deploy a webapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SatelCreative/satel-webapp-deployment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SatelCreative/satel-webapp-deployment/issues"
+  },
+  "homepage": "https://github.com/SatelCreative/satel-webapp-deployment#readme",
+  "dependencies": {
+    "@actions/core": "^1.9.1",
+    "@actions/github": "^5.1.0",
+    "@vercel/ncc": "^0.34.0"
+  }
+}
