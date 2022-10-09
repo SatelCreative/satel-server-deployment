@@ -1,0 +1,34 @@
+---
+name: Increment Git Tag
+description: Increments git tag based on the provided version type
+inputs:
+  app-name:
+    description: Provide version type [major, minor, patch]
+    required: true
+  client-dir:
+    description: Directory for client
+    required: false
+    default: None
+  server-dir:
+    description: Directory for server
+    required: false  
+  docker-user:
+    description: Username for docker registry
+    required: false 
+  docker-pass:
+    description: Password for docker registry 
+    required: false    
+  registry:
+    description: Registry address
+    required: false  
+  current-branch-name: 
+    description: Provides current branch name 
+    required: false    
+  tag-name: 
+    description: Provides current tag name 
+    required: false  
+
+
+runs:
+  using: node16
+  main: dist/index.js
