@@ -4122,9 +4122,7 @@ async function run() {
         const currentBranchName = core.getInput('current-branch-name');
         const tagName = core.getInput('tag-name');
         const src = __dirname;
-        // console.log(src);
-        await exec.exec(`${src}/git_update.sh  ${appName} ${clientPath} ${serverPath} ${dockerUser} ${dockerPass} ${registry} ${currentBranchName} ${tagName}`) ;
-        // await exec.exec(`${src}/dist/git_update.sh st-pim client`);
+        await exec.exec(`${src}/deploy_webapp.sh  ${appName} ${clientPath} ${serverPath} ${dockerUser} ${dockerPass} ${registry} ${currentBranchName} ${tagName}`) ;
     } catch (error) {
         core.setFailed(error.message);
     }
