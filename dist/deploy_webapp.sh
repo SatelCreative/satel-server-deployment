@@ -10,7 +10,7 @@ TAG_NAME=$8
 
 # echo "APP_NAME=${APP_NAME}, CLIENT=${CLIENT}, SERVER=${SERVER}, REGISTRY=${REGISTRY}, BRANCH_NAME=${BRANCH_NAME}  "
 
-## Build client
+echo "Build client"
 if [[ $CLIENT != None ]]
 then
     cd $CLIENT
@@ -21,7 +21,7 @@ fi
 
 cd ..
 
-## Build Server
+echo "Build Server"
 if [[ $SERVER != None ]]
 then
     cd $SERVER
@@ -37,34 +37,34 @@ then
 
     cd ..
 
-    ## Check if the app uses poetry
+    echo "Check if the app uses poetry"
     if grep -i "poetry" Dockerfile; then
         EXTRA_ARGUMENTS="--dev"
     fi
 
-    ## Build and Push branch image to docker
+    echo "Build and Push branch image to docker"
     docker login --username=$DOCKER_USER --password=$DOCKER_PASS $REGISTRY
     docker build -t $REGISTRY/$APP_NAME:$CLEAN_BRANCH_NAME --build-arg DEVFLAG=$EXTRA_ARGUMENTS .
     docker push $REGISTRY/$APP_NAME:$CLEAN_BRANCH_NAME
 
-    ## Docker up
+    echo "Docker up"
     export REGISTRY=$REGISTRY
     export CLEAN_BRANCH_NAME=$CLEAN_BRANCH_NAME
     docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml up -d
 
-    ## Clean up old reports 
+    echo "Clean up old reports" 
     rm -f unittesting.xml coverage.xml typing.xml
     
-    ## DEV image check 
+    echo "DEV image check" 
     IMG_STR=`cat docker-compose.override.yml | grep 'devenv' | cut -d ":" -f 2-3`
     DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect ${IMG_STR} > /dev/null || exit 1
 
 
-    ## App health check
+    echo "App health check"
     sleep 5
     docker-compose exec -T webapp python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
 
-    ## Code tests 
+    echo "Code tests" 
     ## Catch the exit codes so we don't exit the whole script before we are done.
     ## Typing, linting, formatting check & unit and integration testing
     docker-compose exec -T webapp validatecodeonce; STATUS1=$?
