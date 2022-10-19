@@ -1,25 +1,13 @@
 #!/bin/bash
 APP_NAME=$1
-CLIENT=$2
-SERVER=$3
-DOCKER_USER=$4
-DOCKER_PASS=$5
-REGISTRY=$6
-BRANCH_NAME=$7
-TAG_NAME=$8
+SERVER=$2
+DOCKER_USER=$3
+DOCKER_PASS=$4
+REGISTRY=$5
+BRANCH_NAME=$6
+TAG_NAME=$7
 
-# echo "APP_NAME=${APP_NAME}, CLIENT=${CLIENT}, SERVER=${SERVER}, REGISTRY=${REGISTRY}, BRANCH_NAME=${BRANCH_NAME}  "
-
-echo "Build client"
-if [[ $CLIENT != None ]]
-then
-    cd $CLIENT
-    yarn install
-    yarn lint
-    yarn build  
-fi  
-
-cd ..
+# echo "APP_NAME=${APP_NAME}, SERVER=${SERVER}, REGISTRY=${REGISTRY}, BRANCH_NAME=${BRANCH_NAME}  "
 
 echo "Build Server"
 if [[ $SERVER != None ]]
