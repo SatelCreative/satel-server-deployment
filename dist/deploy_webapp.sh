@@ -55,9 +55,9 @@ then
     echo "Clean up old reports" 
     rm -f unittesting.xml coverage.xml typing.xml
     
-    echo "DEV image check" 
-    IMG_STR=`cat docker-compose.override.yml | grep 'devenv' | cut -d ":" -f 2-3`
-    DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect ${IMG_STR} || exit 1
+   # echo "DEV image check" 
+   # IMG_STR=`cat docker-compose.override.yml | grep 'devenv' | cut -d ":" -f 2-3`
+   # DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect ${IMG_STR} || exit 1
 
 
     echo "App health check"
