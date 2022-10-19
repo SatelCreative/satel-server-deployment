@@ -65,8 +65,8 @@ then
     exit $TOTAL
 fi
 
-echo "Docker down"
-docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml down
+# echo "Docker down"
+# docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml down
 
 # if [[ $BRANCH_NAME == 'main' ]]
 # then
