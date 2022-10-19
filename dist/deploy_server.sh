@@ -43,10 +43,9 @@ then
     echo "Clean up old reports" 
     rm -f unittesting.xml coverage.xml typing.xml
     
-   # echo "DEV image check" 
-   # IMG_STR=`cat docker-compose.override.yml | grep 'devenv' | cut -d ":" -f 2-3`
-   # DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect ${IMG_STR} || exit 1
-
+   echo "DEV image check" 
+   IMG_STR=`cat docker-compose.override.yml | grep 'devenv' | cut -d ":" -f 2-3`
+   DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect ${IMG_STR} > /dev/null || exit 1
 
     echo "App health check"
     sleep 5
@@ -62,6 +61,9 @@ then
     ## Return the status code
     TOTAL=$((STATUS1))
     exit $TOTAL
+    
+    echo "Docker down"
+    docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml down
 fi
 
 # if [[ $BRANCH_NAME == 'main' ]]
