@@ -21,6 +21,10 @@ inputs:
   registry:
     description: Registry address
     required: false  
+  dockerfile:
+    description: Dockerfile 
+    required: false
+    default: Dockerfile
   current-branch-name: 
     description: Provides current branch name 
     required: false    

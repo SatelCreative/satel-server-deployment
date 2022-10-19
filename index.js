@@ -8,10 +8,11 @@ async function run() {
         const dockerUser = core.getInput('docker-user');
         const dockerPass = core.getInput('docker-pass');
         const registry = core.getInput('registry');
+        const dockerfile = core.getInput('dockerfile')
         const currentBranchName = core.getInput('current-branch-name');
         const tagName = core.getInput('tag-name');
         const src = __dirname;
-        await exec.exec(`${src}/deploy_server.sh  ${appName} ${serverPath} ${dockerUser} ${dockerPass} ${registry} ${currentBranchName} ${tagName}`) ;
+        await exec.exec(`${src}/deploy_server.sh  ${appName} ${serverPath} ${dockerUser} ${dockerPass} ${registry} ${dockerfile} ${currentBranchName} ${tagName}`) ;
     } catch (error) {
         core.setFailed(error.message);
     }
