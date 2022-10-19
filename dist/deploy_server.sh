@@ -62,11 +62,10 @@ then
     docker cp "$(docker-compose ps -q webapp)":/python/reports/coverage.xml coverage.xml
     ## Return the status code
     TOTAL=$((STATUS1))
+    echo "Docker down"
+    docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml down
     exit $TOTAL
 fi
-
-echo "Docker down"
-docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml down
 
 # if [[ $BRANCH_NAME == 'main' ]]
 # then
