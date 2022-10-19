@@ -1,5 +1,5 @@
 {
-  "name": "increment-git-tag",
+  "name": "deploy-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antonputra/increment-git-tag.git"
+    "url": "https://github.com/SatelCreative/satel-server-deployment"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/antonputra/increment-git-tag/issues"
-  },
-  "homepage": "https://github.com/antonputra/increment-git-tag#readme",
+  "homepage": "https://github.com/SatelCreative/satel-server-deployment#readme",
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/exec": "^1.1.0",
