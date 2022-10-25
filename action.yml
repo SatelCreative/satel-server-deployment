@@ -1,26 +1,31 @@
 ---
-name: Increment Git Tag
-description: Increments git tag based on the provided version type
+name: Satel-server-deployment
+description: Deploys server side of webapp 
 inputs:
   app-name:
     description: Provide version type [major, minor, patch]
     required: true
-  client-dir:
-    description: Directory for client
-    required: false
-    default: None
   server-dir:
     description: Directory for server
     required: false  
-  docker-user:
-    description: Username for docker registry
+  satel-docker-user:
+    description: Username for satel docker registry
     required: false 
-  docker-pass:
-    description: Password for docker registry 
-    required: false    
-  registry:
-    description: Registry address
+  satel-docker-pass:
+    description: Password for satel docker registry 
+    required: false 
+  client-docker-user:
+    description: Username for client docker registry
+    required: false 
+  client-docker-pass:
+    description: Password for client docker registry 
+    required: false      
+  satel-registry:
+    description: Satel registry address
     required: false  
+  client-registry:
+    description: Client registry address
+    required: false   
   dockerfile:
     description: Dockerfile 
     required: false

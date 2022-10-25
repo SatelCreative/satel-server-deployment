@@ -1,14 +1,17 @@
 #!/bin/bash
 APP_NAME=$1
 SERVER=$2
-DOCKER_USER=$3
-DOCKER_PASS=$4
-REGISTRY=$5
-DOCKERFILE=$6
-BRANCH_NAME=$7
-TAG_NAME=$8
+SATEL_DOCKER_USER=$3
+SATEL_DOCKER_PASS=$4
+CLIENT_DOCKER_USER=$5
+CLIENT_DOCKER_PASS=$6
+SATEL_REGISTRY=$7
+CLIENT_REGISTRY=$8
+DOCKERFILE=$9
+BRANCH_NAME=${10}
+TAG_NAME=${11}
 
-# echo "APP_NAME=${APP_NAME}, SERVER=${SERVER}, REGISTRY=${REGISTRY}, BRANCH_NAME=${BRANCH_NAME}  "
+#echo "TAG_NAME=${TAG_NAME}"
 
 echo "Build Server"
 if [[ $SERVER != None ]]
@@ -32,6 +35,18 @@ then
     fi
 
     echo "Build and Push branch image to docker"
+    if [[ -n $TAG_NAME ]]  
+    then
+        DOCKER_USER=$CLIENT_DOCKER_USER
+        DOCKER_PASS=$CLIENT_DOCKER_PASS
+        REGISTRY=$CLIENT_REGISTRY
+    else
+        DOCKER_USER=$SATEL_DOCKER_USER
+        DOCKER_PASS=$SATEL_DOCKER_PASS
+        REGISTRY=$SATEL_REGISTRY
+            
+    fi
+    echo "${DOCKER_USER} ${DOCKER_PASS} ${REGISTRY}"
     docker login --username=$DOCKER_USER --password=$DOCKER_PASS $REGISTRY
     docker build -f $DOCKERFILE . -t $REGISTRY/$APP_NAME:$CLEAN_BRANCH_NAME --build-arg DEVFLAG=$EXTRA_ARGUMENTS
     docker push $REGISTRY/$APP_NAME:$CLEAN_BRANCH_NAME
@@ -67,13 +82,13 @@ then
     exit $TOTAL
 fi
 
-# if [[ $BRANCH_NAME == 'main' ]]
-# then
-    # echo "Deploy to ${APP_NAME}-qa.satelapps.com"
-    # docker login --username=$DOCKER_USER --password=$DOCKER_PASS $REGISTRY
-    # export DOCKER_TLS_VERIFY='1'
-    # export DOCKER_HOST='tcp://34.234.172.171:2376'
-    # export DOCKER_CERT_PATH='/var/jenkins_home/.docker/machine/machines/satel-webapps-qa'
-    # echo $DOCKERPASS | docker login -u $DOCKER_USER --password-stdin $REGISTRY
-    # docker stack deploy --with-registry-auth -c docker-compose.qa.yml ${APP_NAME}
-# fi  
+# # if [[ $BRANCH_NAME == 'main' ]]
+# # then
+#     # echo "Deploy to ${APP_NAME}-qa.satelapps.com"
+#     # docker login --username=$DOCKER_USER --password=$DOCKER_PASS $REGISTRY
+#     # export DOCKER_TLS_VERIFY='1'
+#     # export DOCKER_HOST='tcp://34.234.172.171:2376'
+#     # export DOCKER_CERT_PATH='/var/jenkins_home/.docker/machine/machines/satel-webapps-qa'
+#     # echo $DOCKERPASS | docker login -u $DOCKER_USER --password-stdin $REGISTRY
+#     # docker stack deploy --with-registry-auth -c docker-compose.qa.yml ${APP_NAME}
+# # fi  
