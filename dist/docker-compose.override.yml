@@ -1,0 +1,54 @@
+version: "3.1"
+
+services:
+  redis:
+    ports:
+      - "6379:6379"
+
+  mongo:
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./server:/python/app
+      - ./data/mongodb:/data/db
+
+  pim_api:
+    image: docker.satel.ca/sb-pim-python:devenv23_20220412
+    ports:
+      - "8001:8000"
+    command: "developapp"
+    volumes:
+      - ./server:/python/app
+    environment:
+      - MONGO_HOST=mongo
+      - DEVMODE=true
+    tty: true
+
+  integrations:
+    image: docker.satel.ca/sb-pim-integrations:devenv19_20220412
+    ports:
+      - "8002:8000"
+    command: "developapp"
+    volumes:
+      - ./integrations:/python/app
+      - ./server/base_models:/python/app/base_models
+    environment:
+      - MONGO_HOST=mongo
+      - DEVMODE=true
+      - MODE=main
+    tty: true
+
+  worker1:
+    image: docker.satel.ca/sb-pim-integrations:devenv19_20220412
+    ports:
+      - "8003:8000"
+    command: "developapp"
+    volumes:
+      - ./integrations:/python/app
+      - ./server/base_models:/python/app/base_models
+    environment:
+      - MONGO_HOST=mongo
+      - DEVMODE=true
+      - MODE=worker
+      - WORKER_INDEX=1
+    tty: true
