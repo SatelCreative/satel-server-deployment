@@ -1,7 +1,10 @@
 #!/bin/bash
 APP_NAME=$1
+REGISTRY=$2
+CLEAN_BRANCH_NAME=$3
 
-#echo "TAG_NAME=${TAG_NAME}"
+export REGISTRY=$REGISTRY
+export CLEAN_BRANCH_NAME=$CLEAN_BRANCH_NAME 
 
 echo "Docker up"
 docker-compose -f docker-compose.yml -f docker-compose.pipeline.yml up -d

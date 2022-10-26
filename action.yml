@@ -5,37 +5,13 @@ inputs:
   app-name:
     description: Provide version type [major, minor, patch]
     required: true
-  server-dir:
-    description: Directory for server
-    required: false  
-  satel-docker-user:
-    description: Username for satel docker registry
-    required: false 
-  satel-docker-pass:
-    description: Password for satel docker registry 
-    required: false 
-  client-docker-user:
-    description: Username for client docker registry
-    required: false 
-  client-docker-pass:
-    description: Password for client docker registry 
-    required: false      
-  satel-registry:
-    description: Satel registry address
-    required: false  
-  client-registry:
-    description: Client registry address
-    required: false   
-  dockerfile:
-    description: Dockerfile 
-    required: false
-    default: Dockerfile
-  current-branch-name: 
-    description: Provides current branch name 
-    required: false    
-  tag-name: 
-    description: Provides current tag name 
-    required: false  
+  registry: 
+    description: Provides current name of the registry
+    required: true   
+  clean-branch-name: 
+    description: Branch name that was pushed to registry
+    required: true    
+  
 
 
 runs:
