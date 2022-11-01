@@ -1,9 +1,9 @@
----
+
 name: Satel-server-deployment
 description: Deploys server side of webapp 
 inputs:
   app-name:
-    description: Provide version type [major, minor, patch]
+    description: Name of the app
     required: true
   registry: 
     description: Provides current name of the registry
@@ -12,8 +12,10 @@ inputs:
     description: Branch name that was pushed to registry
     required: true    
   
-
-
 runs:
-  using: node16
-  main: dist/index.js
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/deploy_server.sh ${{ inputs.app-name }}
+            ${{ inputs.registry }} ${{ inputs.clean-branch-name }} $
+      id: registry
+      shell: bash
