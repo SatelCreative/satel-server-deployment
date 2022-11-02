@@ -1,5 +1,5 @@
 # Satel Server Deployment
-This centralized GitHub actions deploys server for a webapp
+This centralized GitHub action deploys server for a webapp
 
 ## Usage 
 ```yml
