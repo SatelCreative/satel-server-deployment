@@ -1,10 +1,9 @@
-
 name: Satel-server-deployment
 description: Deploys server side of webapp 
 inputs:
   app-name:
-    description: Name of the app
-    required: true
+    description: Name of the Webapp
+    required: false
   registry: 
     description: Provides current name of the registry
     required: true   
@@ -17,5 +16,4 @@ runs:
   steps:
     - run: ${{ github.action_path }}/deploy_server.sh ${{ inputs.app-name }}
             ${{ inputs.registry }} ${{ inputs.clean-branch-name }} $
-      id: registry
       shell: bash
